@@ -13,7 +13,7 @@ public class CustomRabbitTemplateConfig {
     // Métodos - Configura RabbitTemplate customizado com retry
     // ====================================================
     @Bean
-    public RabbitTemplate customRabbitTemplate(ConnectionFactory connectionFactory) {
+    public RabbitTemplate rabbitTemplate(ConnectionFactory connectionFactory) {
         RabbitTemplate rabbitTemplate = new RabbitTemplate(connectionFactory);
         rabbitTemplate.setMessageConverter(new Jackson2JsonMessageConverter());
         return rabbitTemplate;
