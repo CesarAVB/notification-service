@@ -1,3 +1,15 @@
+## [1.5.0](https://github.com/CesarAVB/notification-service/compare/v1.4.0...v1.5.0) (2026-02-25)
+
+### Features
+
+* **changelog:** Adiciona versão 1.4.0 com novas funcionalidades de ([523aa84](https://github.com/CesarAVB/notification-service/commit/523aa8433d06a735fb8d7e949ba4a08310b38c79))
+* **config:** Adiciona configuração de datasource e JPA/Hibernate para ([17cc3a3](https://github.com/CesarAVB/notification-service/commit/17cc3a38c7cc127496f913b9213c3a8fdcedba36))
+* **dependencies:** Adiciona Spring Boot Starter para JPA no pom.xml ([d4b3afc](https://github.com/CesarAVB/notification-service/commit/d4b3afc2b4d6b708d9f82a0b4fec2093b91fbb27))
+* **notification:** Adiciona repositório para gerenciamento de ([c377c28](https://github.com/CesarAVB/notification-service/commit/c377c280b6c235b4d85bebcd480c305040061295))
+* **notification:** Atualiza método para retornar histórico paginado de ([ea69a0c](https://github.com/CesarAVB/notification-service/commit/ea69a0c71d78fb96bd938998aa2fe9b99a04cb76))
+* **notification:** Cria entidade NotificationMessage para gerenciamento ([02cae6d](https://github.com/CesarAVB/notification-service/commit/02cae6d5581bc45561fc8553876fb6d3445f3e21))
+* **notification:** Implementa persistência e recuperação paginada de ([9c67dd3](https://github.com/CesarAVB/notification-service/commit/9c67dd39ef2d96a5ecb66925fc00a98efbdb68e8))
+
 ## [1.4.0](https://github.com/CesarAVB/notification-service/compare/v1.3.0...v1.4.0) (2026-02-25)
 
 ### Features
