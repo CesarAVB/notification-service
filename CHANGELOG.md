@@ -1,3 +1,10 @@
+## [1.1.0](https://github.com/CesarAVB/notification-service/compare/v1.0.0...v1.1.0) (2026-02-25)
+
+### Features
+
+* **configuration:** Adiciona arquivos de configuração para RabbitMQ, ([99c2c55](https://github.com/CesarAVB/notification-service/commit/99c2c55ca53618c86b469f7d987f35cf4cd75a76))
+* **configuration:** Adiciona configuração CORS para permitir ([75cac57](https://github.com/CesarAVB/notification-service/commit/75cac572659cdd80507c912d6cfab3eb75d46084))
+
 ## 1.0.0 (2026-02-25)
 
 ### Features
