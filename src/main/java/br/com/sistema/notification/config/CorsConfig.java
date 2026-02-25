@@ -1,5 +1,7 @@
 package br.com.sistema.notification.config;
 
+import java.util.Arrays;
+
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
@@ -19,9 +21,11 @@ public class CorsConfig implements WebMvcConfigurer {
 	@Override
 	public void addCorsMappings(CorsRegistry registry) {
 		// ====================================
-		// Converter String para Array
+		// Converter String para Array (com trim para remover espaços extras)
 		// ====================================
-		String[] origins = allowedOrigins.split(",");
+		String[] origins = Arrays.stream(allowedOrigins.split(","))
+				.map(String::trim)
+				.toArray(String[]::new);
 
 		log.info("🔐 CORS configurado para origens: {}", allowedOrigins);
 		log.info("📊 Total de origens permitidas: {}", origins.length);
