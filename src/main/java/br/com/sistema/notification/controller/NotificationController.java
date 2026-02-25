@@ -1,8 +1,9 @@
 package br.com.sistema.notification.controller;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
+
+import org.springframework.data.domain.Page;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.sistema.notification.dto.request.PublishMessageRequest;
@@ -51,11 +53,13 @@ public class NotificationController {
     }
 
     // ====================================================
-    // Métodos - Retorna histórico recente de notificações
+    // Métodos - Retorna histórico paginado de notificações
     // ====================================================
     @GetMapping("/recent")
-    public ResponseEntity<List<PublishMessageResponse>> getRecentNotifications() {
-        return ResponseEntity.ok(notificationService.getRecentNotifications());
+    public ResponseEntity<Page<PublishMessageResponse>> getRecentNotifications(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "20") int size) {
+        return ResponseEntity.ok(notificationService.getRecentNotifications(page, size));
     }
 
     // ====================================================
