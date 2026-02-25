@@ -1,3 +1,9 @@
+## [1.3.0](https://github.com/CesarAVB/notification-service/compare/v1.2.0...v1.3.0) (2026-02-25)
+
+### Features
+
+* **docker:** Adiciona Dockerfile para construção e execução da ([1ba4c1d](https://github.com/CesarAVB/notification-service/commit/1ba4c1df4eadfb3a44cfb85c0a77b98e514d028b))
+
 ## [1.2.0](https://github.com/CesarAVB/notification-service/compare/v1.1.0...v1.2.0) (2026-02-25)
 
 ### Features
