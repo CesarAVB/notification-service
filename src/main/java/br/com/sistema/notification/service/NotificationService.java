@@ -1,21 +1,23 @@
 package br.com.sistema.notification.service;
 
 import java.time.LocalDateTime;
-import java.util.Collections;
-import java.util.List;
 import java.util.UUID;
-import java.util.concurrent.CopyOnWriteArrayList;
 
 import org.springframework.amqp.core.Queue;
 import org.springframework.amqp.core.TopicExchange;
 import org.springframework.amqp.rabbit.core.RabbitAdmin;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import br.com.sistema.notification.dto.request.PublishMessageRequest;
 import br.com.sistema.notification.dto.response.PublishMessageResponse;
+import br.com.sistema.notification.entity.NotificationMessage;
 import br.com.sistema.notification.exception.InvalidQueueException;
 import br.com.sistema.notification.exception.NotificationException;
+import br.com.sistema.notification.repository.NotificationMessageRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -24,14 +26,14 @@ import lombok.extern.slf4j.Slf4j;
 @RequiredArgsConstructor
 public class NotificationService {
 
-    private static final int MAX_RECENT = 50;
     private final RabbitTemplate rabbitTemplate;
     private final RabbitAdmin rabbitAdmin;
-    private final List<PublishMessageResponse> recentNotifications = new CopyOnWriteArrayList<>();
+    private final NotificationMessageRepository notificationMessageRepository;
 
     // ====================================================
     // Métodos - Publica mensagem em fila/exchange RabbitMQ
     // ====================================================
+    @Transactional
     public PublishMessageResponse publishMessage(PublishMessageRequest request) {
         String messageId = UUID.randomUUID().toString();
         try {
@@ -70,21 +72,29 @@ public class NotificationService {
             throw new NotificationException("Erro ao publicar mensagem: " + e.getMessage(), e);
         }
         
-        PublishMessageResponse response = PublishMessageResponse.builder()
+        LocalDateTime now = LocalDateTime.now();
+
+        NotificationMessage entity = NotificationMessage.builder()
+            .messageId(messageId)
+            .status("SUCCESS")
+            .messageContent(request.getMessage())
+            .exchangeName(request.getExchange())
+            .routingKey(request.getRoutingKey())
+            .queueName(request.getQueue())
+            .publishedAt(now)
+            .build();
+
+        notificationMessageRepository.save(entity);
+        log.info("Notificação persistida no banco: messageId={}", messageId);
+
+        return PublishMessageResponse.builder()
             .messageId(messageId)
             .status("SUCCESS")
             .message("Mensagem publicada com sucesso")
             .exchange(request.getExchange())
             .routingKey(request.getRoutingKey())
-            .timestamp(LocalDateTime.now())
+            .timestamp(now)
             .build();
-            
-        recentNotifications.add(0, response);
-        if (recentNotifications.size() > MAX_RECENT) {
-            recentNotifications.subList(MAX_RECENT, recentNotifications.size()).clear();
-        }
-        
-        return response;
     }
 
     // ====================================================
@@ -154,25 +164,21 @@ public class NotificationService {
     }
 
     // ====================================================
-    // Métodos - Retorna histórico recente de notificações
+    // Métodos - Retorna histórico paginado de notificações
     // ====================================================
-    public List<PublishMessageResponse> getRecentNotifications() {
-        return Collections.unmodifiableList(recentNotifications);
-    }
-
-    // ====================================================
-    // Métodos - Limpa histórico de notificações
-    // ====================================================
-    public void clearRecentNotifications() {
-        recentNotifications.clear();
-        log.info("Histórico de notificações limpo");
-    }
-
-    // ====================================================
-    // Métodos - Retorna quantidade de notificações recentes
-    // ====================================================
-    public int getRecentNotificationsCount() {
-        return recentNotifications.size();
+    @Transactional(readOnly = true)
+    public Page<PublishMessageResponse> getRecentNotifications(int page, int size) {
+        return notificationMessageRepository
+            .findAllByOrderByPublishedAtDesc(PageRequest.of(page, size))
+            .map(entity -> PublishMessageResponse.builder()
+                .messageId(entity.getMessageId())
+                .status(entity.getStatus())
+                .message(entity.getMessageContent())
+                .exchange(entity.getExchangeName())
+                .routingKey(entity.getRoutingKey())
+                .timestamp(entity.getPublishedAt())
+                .build()
+            );
     }
 
     // ====================================================
