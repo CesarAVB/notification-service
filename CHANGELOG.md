@@ -1,3 +1,11 @@
+## [1.2.0](https://github.com/CesarAVB/notification-service/compare/v1.1.0...v1.2.0) (2026-02-25)
+
+### Features
+
+* **exception:** Adiciona GlobalExceptionHandler para tratamento ([b4c0f85](https://github.com/CesarAVB/notification-service/commit/b4c0f85df3b17ecc80250f6e30222edc186e5e1e))
+* **notification:** Adiciona a classe ExceptionResponse para padronizar ([a35630f](https://github.com/CesarAVB/notification-service/commit/a35630fb8608ec76da6fea150a438354b5c766a2))
+* **notification:** Adiciona histórico recente de notificações ao ([8a7e0e3](https://github.com/CesarAVB/notification-service/commit/8a7e0e306c4b7ea074c8e382c7d6397d722d35c7))
+
 ## [1.1.0](https://github.com/CesarAVB/notification-service/compare/v1.0.0...v1.1.0) (2026-02-25)
 
 ### Features
