@@ -48,16 +48,12 @@ public class RabbitMQConfig {
     // ====================================================
     @Bean
     public Binding notificationBinding(Queue notificationQueue, TopicExchange notificationExchange) {
-        return BindingBuilder.bind(notificationQueue)
-            .to(notificationExchange)
-            .with("notification.*");
+        return BindingBuilder.bind(notificationQueue).to(notificationExchange).with("notification.*");
     }
 
     @Bean
     public Binding eventBinding(Queue eventQueue, DirectExchange eventExchange) {
-        return BindingBuilder.bind(eventQueue)
-            .to(eventExchange)
-            .with("event");
+        return BindingBuilder.bind(eventQueue).to(eventExchange).with("event");
     }
 
     // ====================================================
