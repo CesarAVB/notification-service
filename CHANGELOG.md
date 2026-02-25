@@ -1,3 +1,10 @@
+## [1.4.0](https://github.com/CesarAVB/notification-service/compare/v1.3.0...v1.4.0) (2026-02-25)
+
+### Features
+
+* **notification:** Implementa gerenciamento dinâmico de filas e ([66cbe1f](https://github.com/CesarAVB/notification-service/commit/66cbe1feb7af9b1610d9b957cfdd7f255df58a8e))
+* **rabbitmq:** Adiciona configuração do RabbitAdmin para gerenciamento ([51dad09](https://github.com/CesarAVB/notification-service/commit/51dad09158399591a7092691a4d754ae4793470a))
+
 ## [1.3.0](https://github.com/CesarAVB/notification-service/compare/v1.2.0...v1.3.0) (2026-02-25)
 
 ### Features
