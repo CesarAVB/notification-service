@@ -168,8 +168,7 @@ public class NotificationService {
     // ====================================================
     @Transactional(readOnly = true)
     public Page<PublishMessageResponse> getRecentNotifications(int page, int size) {
-        return notificationMessageRepository
-            .findAllByOrderByPublishedAtDesc(PageRequest.of(page, size))
+        return notificationMessageRepository.findAllByOrderByPublishedAtDesc(PageRequest.of(page, size))
             .map(entity -> PublishMessageResponse.builder()
                 .messageId(entity.getMessageId())
                 .status(entity.getStatus())
