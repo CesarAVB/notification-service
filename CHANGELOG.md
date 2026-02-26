@@ -1,3 +1,9 @@
+## [1.5.1](https://github.com/CesarAVB/notification-service/compare/v1.5.0...v1.5.1) (2026-02-26)
+
+### Bug Fixes
+
+* **notification:** Remove unnecessary line breaks in NotificationService ([165fb27](https://github.com/CesarAVB/notification-service/commit/165fb27d72374b42a3eb5641f11c2859d139687f))
+
 ## [1.5.0](https://github.com/CesarAVB/notification-service/compare/v1.4.0...v1.5.0) (2026-02-25)
 
 ### Features
